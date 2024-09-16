@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TaskService {
     private final List<Task> tasks = new ArrayList<>();
-    private static int idCounter = 0;
+    private static int idCounter = 1;
 
     public void createTask(String content) {
         Task newTask = new Task(idCounter++, content);
@@ -16,6 +16,12 @@ public class TaskService {
 
     public void removeTask(int id) {
         tasks.removeIf(task -> task.getId() == id);
+    }
+
+    public void listTasks() {
+        for (Task t : tasks) {
+            System.out.printf("%d - %s\n", t.getId(), t.getContent());
+        }
     }
 
     public void saveToFile() {
