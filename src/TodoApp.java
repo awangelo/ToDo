@@ -34,10 +34,14 @@ public class TodoApp {
                         System.exit(0);
                         break;
                     case 1:
-                        String task = InputUtil.readString("Digite a tarefa: ");
-                        ts.createTask(task);
+                        String addTask = InputUtil.readString("Digite a tarefa a ser adicionada: ");
+                        ts.createTask(addTask);
                         System.out.println("Tarefa adicionada com sucesso!");
                         break;
+                    case 2:
+                        int removeTask = InputUtil.readInt("Digite o ID da tarefa a ser removida: ");
+                        ts.removeTask(removeTask);
+                        System.out.println("Tarefa removidada com sucesso!");
                     default:
                         System.out.println("\n\n\n\n\nOpção inválida");
                         break;
