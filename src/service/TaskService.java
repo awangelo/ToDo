@@ -2,6 +2,7 @@ package service;
 
 import model.Task;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,40 @@ public class TaskService {
     }
 
     public void listTasks() {
-        for (Task t : tasks) {
-            System.out.printf("%d - %s\n", t.getId(), t.getContent());
+        tasks.forEach(task -> System.out.printf("%d - %s\n", task.getId(), task.getContent()));
+    }
+
+    public void saveToFile(String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            tasks.forEach(task -> {
+                try {
+                    writer.write(task.getContent());
+                    writer.newLine();
+                } catch (IOException e) {
+                    System.out.println("Erro ao salvar tarefa: " + e);
+                }
+            });
+
+            System.out.println("\n\n\n\n\nTarefas salvas com sucesso em " + fileName);
+        } catch (IOException e) {
+            System.out.println("\n\n\n\n\nErro ao abrir o arquivo para escrita: " + e);
         }
     }
 
-    public void saveToFile() {
+    public void loadFromFile(String fileName) {
+        idCounter = 1;
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            tasks.clear();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                tasks.add(new Task(idCounter++, line));
+            }
+            System.out.println("\n\n\n\n\nTarefas carregadas com sucesso de " + fileName);
+        } catch (IOException e) {
+            System.out.println("\n\n\n\n\nErro ao carregar tarefas: " + e);
+        }
     }
+
 }

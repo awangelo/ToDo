@@ -13,12 +13,14 @@ public final class InputUtil {
 
     public static int readInt(String prompt) {
         System.out.print(prompt);
-        return sc.nextInt();
+        int v = sc.nextInt();
+        flush();
+        return v;
     }
 
     public static String readString(String prompt) {
         System.out.print(prompt);
-        return sc.next();
+        return sc.nextLine();
     }
 
     public static void flush() {
